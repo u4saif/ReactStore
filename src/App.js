@@ -1,9 +1,10 @@
 import './App.css';
+import Nav from './components/Nav';
 
 function App() {
   return (
-    <div className="m-4 text-center font-bold text-xl">
-      Shopping app created
+    <div>
+      <Nav/>
     </div>
   );
 }
