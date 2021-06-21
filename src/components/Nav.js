@@ -5,7 +5,7 @@ function Nav() {
       <ul className="flex justify-between color: #3182ce;">
         <li className="mr-3">
           <a
-            className="inline-block py-2 px-4 text-gray-400 cursor-not-allowed"
+            className="inline-block py-2 px-4 text-white cursor-not-allowed font-bold"
             href="#"
           >
             Shopper's Shoose
@@ -13,7 +13,7 @@ function Nav() {
         </li>
         <li className="mr-3">
           <a
-            className="flex border border-blue-700 rounded py-2 px-4 bg-green-500  hover:bg-blue-500 text--black"
+            className="flex border border-blue-700 rounded py-2 px-4 bg-green-500  hover:bg-blue-500 text-black"
             href="#"
           >
           Cart
