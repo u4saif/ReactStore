@@ -13,7 +13,7 @@ function Nav() {
         </li>
         <li className="mr-3">
           <a
-            className="flex border border-blue-700 rounded py-2 px-4 bg-green-500  hover:bg-blue-500 text-black"
+            className="flex border border-blue-700 rounded py-2 px-4 bg-yellow-300  hover:bg-yellow-500 hover:text-white"
             href="#"
           >
           Cart
