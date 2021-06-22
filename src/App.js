@@ -8,7 +8,6 @@ function App() {
   return (
     <>
     <Router>
-    
       <Nav/>
       <Switch>
       <Route path="/" component={ProductsPage} exact></Route>

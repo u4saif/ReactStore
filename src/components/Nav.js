@@ -2,7 +2,7 @@ import React from "react";
 import {Link}  from 'react-router-dom';
 function Nav() {
   return (
-    <div className="bg-pink-600 p-4 shadow-2xl">
+    <div className="bg-pink-600 p-4 shadow-2xl sticky top-0">
       <ul className="flex justify-between color: #3182ce;">
         <li className="mr-3">
           <Link
