@@ -1,6 +1,9 @@
-import React from "react";  
+import {React,useContext} from "react";  
 import {Link}  from 'react-router-dom';
+import {CartContext} from '../CartContext';
+
 function Nav() {
+  let {cart}=useContext(CartContext);
   return (
     <div className="bg-pink-600 p-4 shadow-2xl sticky top-0">
       <ul className="flex justify-between color: #3182ce;">
@@ -17,7 +20,7 @@ function Nav() {
             className="flex border border-blue-700 rounded py-2 px-4 bg-yellow-300  hover:bg-yellow-500 hover:text-white"
             to="/cart"
           >
-          Cart
+          <b> {cart.totalItems}</b>
             <img className="ml-2" src="/assets/images/cart.png" alt="cart-icon" />
           </Link>
         </li>
