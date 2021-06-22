@@ -1,6 +1,8 @@
-import React from "react";
+import {React,useContext} from "react";
+import { CartContext } from "../CartContext";
 
 const SingleProduct = (props) => {
+    const {myname} =useContext(CartContext);
     const {product}=props;
     const add=()=>{
         console.log("added to cart");
@@ -10,7 +12,7 @@ const SingleProduct = (props) => {
       <div className="rounded overflow-hidden shadow-lg">
         <img className="w-full h-80" src="" alt="Mountain" src={product.imgUrl}/>
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">{product.name}</div>
+          <div className="font-bold text-xl mb-2">{product.name} {myname}</div>
           <p className="text-gray-700 text-base">
              {product.discription}
           </p>
