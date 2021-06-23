@@ -74,7 +74,7 @@ function Cart() {
    (!cartDetail?.length)
         ? <img className="mx-auto w-1/3 mt-12" src="/assets/images/empty-cart.png" alt="" />
         :
-    <div className="container mx-auto lg:w-1/2 w-full pb-24">
+    <div className="container mx-auto lg:w-1/2 w-full pb-24 ">
     <h1 className="my-12 font-bold">Cart items</h1>
     <ul>
      {
@@ -82,26 +82,26 @@ function Cart() {
          return (
 
           <li className="mb-12" key={item.id}>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center md:justify-between justify-space-evenly">
             <div className="flex items-center">
-              <img className="h-16" src={item.imgUrl} alt="" />
-              <span className="font-bold ml-4 w-48">{item.name} </span> 
+              <img className="h-16 mx-1" src={item.imgUrl} alt="" />
+              <span className="md:font-bold ml-4 md:w-48">{item.name} </span> 
             </div>
             <div>
               <button
                 onClick={() => {
                   decrement(item.id);
                 }}
-                className="bg-yellow-300 px-4 py-2 rounded-full leading-none"
+                className="bg-yellow-300 md:px-4 md:py-2 p-1 rounded-full leading-none"
               >
                 -
               </button>
-              <b className="px-4">{getQty(item.id)}</b>
+              <b className="md:px-4">{getQty(item.id)}</b>
               <button
                 onClick={() => {
                   increment(item.id);
                 }}
-                className="bg-yellow-300 px-4 py-2 rounded-full leading-none"
+                className="bg-yellow-300  md:px-4 md:py-2 p-1  rounded-full leading-none"
               >
                 +
               </button>
@@ -111,7 +111,7 @@ function Cart() {
               onClick={() => {
                 handleDelete(item.id);
               }}
-              className="bg-red-500 px-4 py-2 rounded-full leading-none text-white"
+              className="bg-red-500 md:px-4 p-2 rounded-full leading-none text-white"
             >
               Delete
             </button>
