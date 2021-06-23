@@ -1,95 +1,115 @@
-import React from "react";
+import {React,useEffect,useContext, useState} from "react";
+import {CartContext} from '../CartContext';
 
 function Cart() {
-  let product = {
-    id: 123,
-  };
+  let {cart , setCart }=useContext(CartContext);
+   
+  const [isCartDetailFetched, toggleIsCartDetailFetched] = useState(false);
+  const [cartDetail, setcartDetail] = useState([]);
+
+  const getCartList=()=>{
+    if(!cart.items){
+      return;
+    } 
+    if(isCartDetailFetched){
+      return;
+    }
+    fetch('/api/cart',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({ id: Object.keys(cart.items)})
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      setcartDetail(data)
+      toggleIsCartDetailFetched(true);
+    });
+    
+  }
+
+  useEffect(() => {
+    getCartList();
+  }, [cart,isCartDetailFetched]);
+
   const handleOrderNow = () => {
     window.alert('Order placed succesfully!');
     
 }
-  const decrement = (id) => {};
-  const increment = (id) => {};
-  const handleDelete = (id) => {};
-  const getSum = (id) => {};
-  const getQty = (id) => {};
+  const decrement = (id) => {
+    if(cart.items[id]==1){
+      return
+    }
+    let _cart= {...cart};
+    _cart.items[id]--;
+    setCart(_cart);
+  };
+
+  const increment = (id) => {
+    let _cart= {...cart};
+    _cart.items[id]++;
+    setCart(_cart);
+  };
+  const handleDelete = (id) => {
+    let _cart= {...cart};
+    delete _cart.items[id];
+    setCart(_cart);
+  };
+  const getSum = (id,price) => { return (cart.items[id] * price)};
+  const getQty = (id) => { return cart.items[id]};
   return (
+   (!cartDetail?.length)
+        ? <img className="mx-auto w-1/3 mt-12" src="/assets/images/empty-cart.png" alt="" />
+        :
     <div className="container mx-auto lg:w-1/2 w-full pb-24">
     <h1 className="my-12 font-bold">Cart items</h1>
     <ul>
-    <li className="mb-12">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img className="h-16" src="/assets/images/6.png" alt="" />
-          <span className="font-bold ml-4 w-48">Name </span>
-        </div>
-        <div>
-          <button
-            onClick={() => {
-              decrement(product._id);
-            }}
-            className="bg-yellow-300 px-4 py-2 rounded-full leading-none"
-          >
-            -
-          </button>
-          <b className="px-4">{getQty(product._id)}</b>
-          <button
-            onClick={() => {
-              increment(product._id);
-            }}
-            className="bg-yellow-300 px-4 py-2 rounded-full leading-none"
-          >
-            +
-          </button>
-        </div>
-        <span>₹ {getSum(product._id)}</span>
-        <button
-          onClick={() => {
-            handleDelete(product._id);
-          }}
-          className="bg-red-500 px-4 py-2 rounded-full leading-none text-white"
-        >
-          Delete
-        </button>
-      </div>
-    </li>
-    <li className="mb-12">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img className="h-16" src="/assets/images/6.png" alt="" />
-          <span className="font-bold ml-4 w-48">Name </span>
-        </div>
-        <div>
-          <button
-            onClick={() => {
-              decrement(product._id);
-            }}
-            className="bg-yellow-300 px-4 py-2 rounded-full leading-none"
-          >
-            -
-          </button>
-          <b className="px-4">{getQty(product._id)}</b>
-          <button
-            onClick={() => {
-              increment(product._id);
-            }}
-            className="bg-yellow-300 px-4 py-2 rounded-full leading-none"
-          >
-            +
-          </button>
-        </div>
-        <span>₹ {getSum(product._id)}</span>
-        <button
-          onClick={() => {
-            handleDelete(product._id);
-          }}
-          className="bg-red-500 px-4 py-2 rounded-full leading-none text-white"
-        >
-          Delete
-        </button>
-      </div>
-    </li>
-    
+     {
+       cartDetail.map(item=>{  
+         return (
+
+          <li className="mb-12" key={item.id}>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <img className="h-16" src={item.imgUrl} alt="" />
+              <span className="font-bold ml-4 w-48">{item.name} </span> 
+            </div>
+            <div>
+              <button
+                onClick={() => {
+                  decrement(item.id);
+                }}
+                className="bg-yellow-300 px-4 py-2 rounded-full leading-none"
+              >
+                -
+              </button>
+              <b className="px-4">{getQty(item.id)}</b>
+              <button
+                onClick={() => {
+                  increment(item.id);
+                }}
+                className="bg-yellow-300 px-4 py-2 rounded-full leading-none"
+              >
+                +
+              </button>
+            </div>
+            <span>₹ {getSum(item.id,item.price)}</span>
+            <button
+              onClick={() => {
+                handleDelete(item.id);
+              }}
+              className="bg-red-500 px-4 py-2 rounded-full leading-none text-white"
+            >
+              Delete
+            </button>
+          </div>
+        </li>
+       
+         )
+       })
+     } 
+   
     </ul>
             <hr className="my-6"/>
             <div className="text-right">
@@ -99,6 +119,7 @@ function Cart() {
                 <button onClick={handleOrderNow} className="bg-yellow-300 px-4 py-2 rounded-full leading-none">Order Now</button>
             </div>
         </div>
+ 
   );
 }
 
