@@ -2,8 +2,8 @@ import {React,useEffect,useContext, useState} from "react";
 import {CartContext} from '../CartContext';
 
 function Cart() {
+  let total = 0;
   let {cart , setCart }=useContext(CartContext);
-   
   const [isCartDetailFetched, toggleIsCartDetailFetched] = useState(false);
   const [cartDetail, setcartDetail] = useState([]);
 
@@ -43,20 +43,28 @@ function Cart() {
     }
     let _cart= {...cart};
     _cart.items[id]--;
+    _cart.totalItems--;
     setCart(_cart);
   };
 
   const increment = (id) => {
     let _cart= {...cart};
     _cart.items[id]++;
+    _cart.totalItems++;
     setCart(_cart);
   };
   const handleDelete = (id) => {
     let _cart= {...cart};
+    let qty= _cart.items[id];
     delete _cart.items[id];
+    _cart.totalItems-=qty;
     setCart(_cart);
   };
-  const getSum = (id,price) => { return (cart.items[id] * price)};
+  const getSum = (id,price) => { 
+    let sum = cart.items[id] * price;
+    total += sum;
+    return sum;
+  };
   const getQty = (id) => { return cart.items[id]};
   return (
    (!cartDetail?.length)
@@ -113,7 +121,7 @@ function Cart() {
     </ul>
             <hr className="my-6"/>
             <div className="text-right">
-                <b>Grand Total:</b> ₹ 222
+                <b>Grand Total:</b> ₹ {total}
             </div>
             <div className="text-right mt-6">
                 <button onClick={handleOrderNow} className="bg-yellow-300 px-4 py-2 rounded-full leading-none">Order Now</button>
