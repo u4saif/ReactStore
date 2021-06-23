@@ -20,7 +20,7 @@ function Nav() {
             className="flex border border-blue-700 rounded py-2 px-4 bg-yellow-300  hover:bg-yellow-500 hover:text-white"
             to="/cart"
           >
-          <b> {cart.totalItems}</b>
+          <b> {cart?.totalItems || 0}</b>
             <img className="ml-2" src="/assets/images/cart.png" alt="cart-icon" />
           </Link>
         </li>

@@ -35,6 +35,8 @@ function Cart() {
 
   const handleOrderNow = () => {
     window.alert('Order placed succesfully!');
+    setcartDetail([]);
+    setCart({});
     
 }
   const decrement = (id) => {
@@ -58,6 +60,8 @@ function Cart() {
     let qty= _cart.items[id];
     delete _cart.items[id];
     _cart.totalItems-=qty;
+    const updatedProductsList = cartDetail.filter((product) => product.id !== id);
+    setcartDetail(updatedProductsList);
     setCart(_cart);
   };
   const getSum = (id,price) => { 
@@ -102,7 +106,7 @@ function Cart() {
                 +
               </button>
             </div>
-            <span>₹ {getSum(item.id,item.price)}</span>
+            <span>$ {getSum(item.id,item.price)}</span>
             <button
               onClick={() => {
                 handleDelete(item.id);
@@ -124,7 +128,7 @@ function Cart() {
                 <b>Grand Total:</b> ₹ {total}
             </div>
             <div className="text-right mt-6">
-                <button onClick={handleOrderNow} className="bg-yellow-300 px-4 py-2 rounded-full leading-none">Order Now</button>
+                <button onClick={()=>{handleOrderNow()}} className="bg-yellow-300 px-4 py-2 rounded-full leading-none">Order Now</button>
             </div>
         </div>
  
