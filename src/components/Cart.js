@@ -8,13 +8,13 @@ function Cart() {
   const [cartDetail, setcartDetail] = useState([]);
 
   const getCartList=()=>{
-    if(!cart.items){
+    if(!cart?.items){
       return;
     } 
     if(isCartDetailFetched){
       return;
     }
-    fetch('/api/cart',{
+    fetch('https://prodbysaif.herokuapp.com/api/cart',{
       method:'POST',
       headers:{
         'Content-Type':'application/json'

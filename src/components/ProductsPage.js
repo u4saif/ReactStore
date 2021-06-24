@@ -5,7 +5,7 @@ function ProductsPage() {
   const  [productsList, setproductsList] = useState([]);
   
   useEffect(() => {
-    fetch('/api/products')
+    fetch('https://prodbysaif.herokuapp.com/api/products')
     .then((res)=>{return res.json()})
     .then((data)=>{
       setproductsList(data);
